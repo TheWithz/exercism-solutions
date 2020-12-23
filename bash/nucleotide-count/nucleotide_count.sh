@@ -1,24 +1,15 @@
 #!/usr/bin/env bash
 
-# The following comments should help you get started:
-# - Bash is flexible. You may use functions or write a "raw" script.
-#
-# - Complex code can be made easier to read by breaking it up
-#   into functions, however this is sometimes overkill in bash.
-#
-# - You can find links about good style and other resources
-#   for Bash in './README.md'. It came with this exercise.
-#
-#   Example:
-#   # other functions here
-#   # ...
-#   # ...
-#
-#   main () {
-#     # your main function code here
-#   }
-#
-#   # call main with all of the positional arguments
-#   main "$@"
-#
-# *** PLEASE REMOVE THESE COMMENTS BEFORE SUBMITTING YOUR SOLUTION ***
+main () {
+    (( "$#" != 1 )) && usage 1
+    [[ ! "$1" =~ ^[ACGT]*$ ]] && usage 2
+    echo "$(echo "ACGT$1" | grep -o . | sort | uniq -c | awk '{print $2": "$1-1}')"
+}
+
+usage() {
+    (( $1 == 1 )) && echo "bash nucleotides.sh <string>"
+    (( $1 == 2 )) && echo "Invalid nucleotide in strand" >&2
+    exit 1
+}
+
+main "$@"
