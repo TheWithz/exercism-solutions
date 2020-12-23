@@ -6,15 +6,8 @@ main () {
     # both arguments must be the same length
     (( ${#1} != ${#2} )) && error 2
     count=0
-    # turns the dna strings into arrays for easier for looping
-    # grep -o . prints each character on a newline
-    # paste -s -d ' ' replaces all but the last newline with a space
-    # using paste is equivalent to: tr '\n' ' ' | sed '$s/ $/\n/'
-    arr1=(`echo "$1" | grep -o . | paste -s -d ' '`)
-    arr2=(`echo "$2" | grep -o . | paste -s -d ' '`)
-    # loop through the strings by index
-    for i in "${!arr1[@]}"; do
-        [[ "${arr1[$i]}" != "${arr2[$i]}" ]] && (( ++count ))
+    for ((i=0; i<${#1}; i++)); do 
+        [[ "${1:i:1}" != "${2:i:1}" ]] && (( ++count ))
     done
     echo "$count"
 }

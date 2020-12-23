@@ -91,3 +91,12 @@
   (( status == 0 ))
   [[ $output == "1" ]]
 }
+
+# user tests
+
+@test "expose glob expansion bug" {
+  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+  run bash hamming.sh 'a*c' 'abc'
+  (( status == 0 ))
+  [[ $output == "1" ]]
+}
