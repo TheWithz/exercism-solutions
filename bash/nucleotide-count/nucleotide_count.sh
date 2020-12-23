@@ -7,7 +7,7 @@ main () {
 }
 
 usage() {
-    (( $1 == 1 )) && echo "bash nucleotides.sh <string>"
+    (( $1 == 1 )) && echo "bash nucleotides.sh <string>" >&2
     (( $1 == 2 )) && echo "Invalid nucleotide in strand" >&2
     exit 1
 }
