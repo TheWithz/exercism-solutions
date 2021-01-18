@@ -3,7 +3,7 @@
 main () {
     (( "$#" != 1 )) && usage 1
     [[ ! "$1" =~ ^[ACGT]*$ ]] && usage 2
-    echo "ACGT$1" | grep -o . | sort | uniq -c | awk '{print $2": "$1-1}'
+    echo "$(echo "ACGT$1" | grep -o . | sort | uniq -c | awk '{print $2": "$1-1}')"
 }
 
 usage() {
