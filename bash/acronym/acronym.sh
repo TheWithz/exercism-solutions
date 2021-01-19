@@ -1,24 +1,16 @@
 #!/usr/bin/env bash
 
-# The following comments should help you get started:
-# - Bash is flexible. You may use functions or write a "raw" script.
-#
-# - Complex code can be made easier to read by breaking it up
-#   into functions, however this is sometimes overkill in bash.
-#
-# - You can find links about good style and other resources
-#   for Bash in './README.md'. It came with this exercise.
-#
-#   Example:
-#   # other functions here
-#   # ...
-#   # ...
-#
-#   main () {
-#     # your main function code here
-#   }
-#
-#   # call main with all of the positional arguments
-#   main "$@"
-#
-# *** PLEASE REMOVE THESE COMMENTS BEFORE SUBMITTING YOUR SOLUTION ***
+main () {
+    # separates input, one word per line
+    tr -s " -" "\n" <<< "$1" |
+        # removes all special characters and numbers, but not newlines
+        tr -cd '[:alpha:]\n' |
+        # changes all letter to uppercase
+        tr a-z A-Z |
+        # grab the first letter of each word
+        cut -c 1 |
+        # stick them back together
+        paste -s -d ''
+}
+
+main "$@"
